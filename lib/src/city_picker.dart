@@ -107,28 +107,16 @@ class CityPickers {
     Map<String, dynamic> citiesData,
     Map<String, dynamic> provincesData,
   }) {
-    return Navigator.push(
-        context,
-        new PageRouteBuilder(
-          settings: RouteSettings(name: 'fullPageCityPicker'),
-          transitionDuration: const Duration(milliseconds: 250),
-          pageBuilder: (context, _, __) => new Theme(
-              data: theme ?? Theme.of(context),
-              child: FullPage(
-                showType: showType,
-                locationCode: locationCode,
-                citiesData: citiesData ?? meta.citiesData,
-                provincesData: provincesData ?? meta.provincesData,
-              )),
-          transitionsBuilder:
-              (_, Animation<double> animation, __, Widget child) =>
-                  new SlideTransition(
-                      position: new Tween<Offset>(
-                        begin: Offset(0.0, 1.0),
-                        end: Offset(0.0, 0.0),
-                      ).animate(animation),
-                      child: child),
-        ));
+    return Navigator.push(context, new CupertinoPageRoute(builder: (context) {
+      return new Theme(
+          data: theme ?? Theme.of(context),
+          child: FullPage(
+            showType: showType,
+            locationCode: locationCode,
+            citiesData: citiesData ?? meta.citiesData,
+            provincesData: provincesData ?? meta.provincesData,
+          ));
+    }));
   }
 
   static Future<Result> showCitiesSelector({
@@ -166,40 +154,27 @@ class CityPickers {
         backgroundColor: defaultTopIndexBgColor);
 
     _topStickStyle = _topStickStyle.merge(topStickStyle);
-    return Navigator.push(
-        context,
-        new PageRouteBuilder(
-          settings: RouteSettings(name: 'CitiesPicker'),
-          transitionDuration: const Duration(milliseconds: 250),
-          pageBuilder: (context, _, __) => new Theme(
-              data: theme ?? Theme.of(context),
-              child: CitiesSelector(
-                  title: title,
-                  provincesData: provincesData,
-                  citiesData: citiesData,
-                  hotCities: hotCities,
-                  locationCode: locationCode,
-                  tagBarActiveColor: _sideBarStyle.backgroundActiveColor,
-                  tagBarFontActiveColor: _sideBarStyle.activeColor,
-                  tagBarBgColor: _sideBarStyle.backgroundColor,
-                  tagBarFontColor: _sideBarStyle.color,
-                  tagBarFontSize: _sideBarStyle.fontSize,
-                  topIndexFontSize: _topStickStyle.fontSize,
-                  topIndexHeight: _topStickStyle.height,
-                  topIndexFontColor: _topStickStyle.color,
-                  topIndexBgColor: _topStickStyle.backgroundColor,
-                  itemFontColor: _cityItemStyle.color,
-                  cityItemFontSize: _cityItemStyle.fontSize,
-                  itemSelectFontColor: _cityItemStyle.activeColor)),
-          transitionsBuilder:
-              (_, Animation<double> animation, __, Widget child) =>
-                  new SlideTransition(
-                      position: new Tween<Offset>(
-                        begin: Offset(0.0, 1.0),
-                        end: Offset(0.0, 0.0),
-                      ).animate(animation),
-                      child: child),
-        ));
+    return Navigator.push(context, new CupertinoPageRoute(builder: (context) {
+      return new Theme(
+          data: theme ?? Theme.of(context),
+          child: CitiesSelector(
+              title: title,
+              provincesData: provincesData,
+              citiesData: citiesData,
+              hotCities: hotCities,
+              locationCode: locationCode,
+              tagBarActiveColor: _sideBarStyle.backgroundActiveColor,
+              tagBarFontActiveColor: _sideBarStyle.activeColor,
+              tagBarBgColor: _sideBarStyle.backgroundColor,
+              tagBarFontColor: _sideBarStyle.color,
+              tagBarFontSize: _sideBarStyle.fontSize,
+              topIndexFontSize: _topStickStyle.fontSize,
+              topIndexHeight: _topStickStyle.height,
+              topIndexFontColor: _topStickStyle.color,
+              topIndexBgColor: _topStickStyle.backgroundColor,
+              itemFontColor: _cityItemStyle.color,
+              cityItemFontSize: _cityItemStyle.fontSize,
+              itemSelectFontColor: _cityItemStyle.activeColor));
+    }));
   }
 }
-
